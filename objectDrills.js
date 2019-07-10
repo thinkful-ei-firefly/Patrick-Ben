@@ -143,6 +143,50 @@ console.log(decodeWords(input));
 
 // 7) Factory Functions with LOTR
 
+function createCharacter(name, nickname, race, origin, attack, defense) {
+  return {
+    name,
+    nickname,
+    race,
+    origin,
+    attack,
+    defense,
+    describe: function() {
+      return `${this.name} is a ${this.race} from ${this.origin}`
+    },
+    evaluateFight: function(character) {
+      let damage = this.attack - character.defense;
+      let rDamage = character.attack - this.defense;
+        if (rDamage < 0) {
+          rDamage = 0;
+        }
+        if (damage < 0) {
+          damage = 0;
+        }
+      return `Your opponent takes ${damage} damage and you receive ${rDamage} damage`
+    }
+};
+
+const characters = [
+  createCharacter('gandalf the white','gandalf', 'Wizard', 'Middle Earth', 10, 6)
+  
+]
+
+
+let newChar = {
+  Name: 'Arwen Undomiel',
+  Nickname: 'arwen',
+  Race: 'Half-Elf',
+  Origin: 'Rivendell',
+  Attack: 7,
+  Defense: 5,
+  describe: function() {
+    return `${this.Name} is a ${this.Race} from ${this.Origin}`;
+  }
+  evaluateFight: function() {
+    return `Your opponent takes ${x} damage and you receive ${y} damage`;
+}
+
 // 8) BONUS: A Database Search
 
 // 8a) BONUS II: A Database Method
