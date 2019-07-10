@@ -223,14 +223,9 @@ const HEROES = [
 ];
 
 function findOne(arr, query) {
-  const queryKey = Object.keys(query);
   const result = arr.filter(element => {
-    const arrKey = Object.keys(element);
-    for (const key in queryKey) {
-      if (
-        !arrKey.includes(queryKey[key]) ||
-        element[queryKey[key]] !== query[queryKey[key]]
-      ) {
+    for (const key in query) {
+      if (!(key in element) || element[key] !== query[key]) {
         return false;
       }
     }
