@@ -275,4 +275,4 @@ const Database = {
   }
 };
 
-Database.findOne({ id: 2 });
+console.log(Database.findOne({ squad: 'Justice League' }));
