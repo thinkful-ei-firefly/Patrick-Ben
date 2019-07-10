@@ -112,6 +112,35 @@ teamInfo2(avengers2);
 
 // 6) Cracking the code
 
+const cipher = {
+  a: 1,
+  b: 2,
+  c: 3,
+  d: 4
+};
+
+function decode(word) {
+  if (cipher[word[0]]) {
+    return word[cipher[word[0]]];
+  } else {
+    return ' ';
+  }
+}
+
+function decodeWords(str) {
+  const arr = str.split(' ');
+
+  for (let i = 0; i < arr.length; i++) {
+    arr[i] = decode(arr[i]);
+  }
+  return arr.join('');
+}
+
+const input = 'craft block argon meter bells brown croon droop';
+
+
+console.log(decodeWords(input));
+
 // 7) Factory Functions with LOTR
 
 // 8) BONUS: A Database Search
