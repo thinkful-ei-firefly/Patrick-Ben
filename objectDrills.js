@@ -223,9 +223,30 @@ const HEROES = [
 ];
 
 function findOne(arr, query) {
-  arr.filter(function(element) {
+  const queryKey = Object.keys(query);
+  const result = arr.filter(element => {
+    const arrKey = Object.keys(element);
+    for (const key in queryKey) {
+      if (
+        !arrKey.includes(queryKey[key]) ||
+        element[queryKey[key]] !== query[queryKey[key]]
+      ) {
+        return false;
+      }
     }
+    return true;
+  });
+  if (!result[0]) {
+    return null;
+  } else {
+    return result[0];
   }
 }
+
+console.log(findOne(HEROES, { id: 1 }));
+console.log(findOne(HEROES, { id: 10 }));
+console.log(findOne(HEROES, { id: 2, name: 'Aquaman' }));
+console.log(findOne(HEROES, { id: 5, squad: 'Justice League' }));
+console.log(findOne(HEROES, { squad: 'Justice League' }));
 
 // 8a) BONUS II: A Database Method
