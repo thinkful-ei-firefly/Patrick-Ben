@@ -245,3 +245,34 @@ console.log(findOne(HEROES, { id: 5, squad: 'Justice League' }));
 console.log(findOne(HEROES, { squad: 'Justice League' }));
 
 // 8a) BONUS II: A Database Method
+
+const Database = {
+  store: {
+    heroes: [
+      { id: 1, name: 'Captain America', squad: 'Avengers' },
+      { id: 2, name: 'Iron Man', squad: 'Avengers' },
+      { id: 3, name: 'Spiderman', squad: 'Avengers' },
+      { id: 4, name: 'Superman', squad: 'Justice League' },
+      { id: 5, name: 'Wonder Woman', squad: 'Justice League' },
+      { id: 6, name: 'Aquaman', squad: 'Justice League' },
+      { id: 7, name: 'Hulk', squad: 'Avengers' }
+    ]
+  },
+  findOne: function(query) {
+    const result = this.store.heroes.filter(element => {
+      for (const key in query) {
+        if (!(key in element) || element[key] !== query[key]) {
+          return false;
+        }
+      }
+      return true;
+    });
+    if (!result[0]) {
+      return null;
+    } else {
+      return result[0];
+    }
+  }
+};
+
+Database.findOne({ id: 2 });
