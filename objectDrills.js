@@ -143,7 +143,7 @@ console.log(decodeWords(input));
 
 // 7) Factory Functions with LOTR
 
-function createCharacter(name, nickname, race, origin, attack, defense) {
+function createCharacter(name, nickname, race, origin, attack, defense, weapon) {
   return {
     name,
     nickname,
@@ -151,41 +151,64 @@ function createCharacter(name, nickname, race, origin, attack, defense) {
     origin,
     attack,
     defense,
+    weapon,
     describe: function() {
-      return `${this.name} is a ${this.race} from ${this.origin}`
+      if (this.weapon === undefined) {
+        console.log(`${this.name} is a ${this.race} from ${this.origin}.`);
+      } else {
+        console.log(`${this.name} is a ${this.race} from ${this.origin} who uses a ${weapon}.`);
+      }
     },
-    evaluateFight: function(character) {
-      let damage = this.attack - character.defense;
-      let rDamage = character.attack - this.defense;
-        if (rDamage < 0) {
-          rDamage = 0;
-        }
-        if (damage < 0) {
-          damage = 0;
-        }
-      return `Your opponent takes ${damage} damage and you receive ${rDamage} damage`
+    evaluateFight: function(opponent) {
+      let oppDamage = this.attack - opponent.defense;
+      let thisDamage = opponent.attack - this.defense;
+      if (oppDamage < 0) {
+        oppDamage = 0;
+      }
+      if (thisDamage < 0) {
+        thisDamage = 0;
+      }
+      return `Your opponent takes ${oppDamage} and you receive ${thisDamage}.`;
     }
-};
+  };
+}
 
 const characters = [
-  createCharacter('gandalf the white','gandalf', 'Wizard', 'Middle Earth', 10, 6)
-  
-]
+  createCharacter(
+    'Gandalf the White',
+    'gandalf',
+    'Wizard',
+    'Middle Earth',
+    10,
+    6,
+    'wizard staff'
+  ),
+  createCharacter('Bilbo Baggins', 'bilbo', 'Hobbit', 'The Shire', 2, 1, 'the Ring'),
+  createCharacter('Frodo Baggins', 'frodo', 'Hobbit', 'The Shire', 3, 2, 'String and Barrow Blade'),
+  createCharacter(
+    'Aragorn son of Arathorn',
+    'aragorn',
+    'Man',
+    'Dunnedain',
+    6,
+    8
+  ),
+  createCharacter('Legolas', 'legolas', 'Elf', 'Woodland Realm', 8, 5)
+];
 
+characters.push(createCharacter('Arwen Undomiel', 'arwen', 'Half-Elf', 'Rivendell', 7, 5));
 
-let newChar = {
-  Name: 'Arwen Undomiel',
-  Nickname: 'arwen',
-  Race: 'Half-Elf',
-  Origin: 'Rivendell',
-  Attack: 7,
-  Defense: 5,
-  describe: function() {
-    return `${this.Name} is a ${this.Race} from ${this.Origin}`;
+characters.find(function(item) {
+  if (item['nickname'] === 'aragorn') {
+    item.describe();
   }
-  evaluateFight: function() {
-    return `Your opponent takes ${x} damage and you receive ${y} damage`;
-}
+});
+
+const filteredCharacters = characters.filter(char => char['race'] === 'Hobbit');
+console.log(JSON.stringify(filteredCharacters));
+
+const filteredCharacters2 = characters.filter(char => char['attack'] > 5); 
+console.log(JSON.stringify(filteredCharacters2));
 
 // 8) BONUS: A Database Search
 
